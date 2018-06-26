@@ -1,0 +1,24 @@
+{
+    "exec": {
+        "elmo": ["/Users/yijialiu/anaconda3/envs/elmo/bin/python", "/Users/yijialiu/work/projects/conll2018/exec/gen_elmo.py"],
+        "udpipe": ["/Users/yijialiu/work/projects/conll2018/exec/udpipe"],
+        "scir_tokenizer": ["/Users/yijialiu/anaconda3/envs/elmo/bin/python", "/Users/yijialiu/work/projects/conll2018/exec/scir_segmentor.py"],
+        "stanford": ["/Users/yijialiu/anaconda3/envs/py27/bin/python", "/Users/yijialiu/work/projects/conll2018/exec/main.py"],
+        "uppsala_segmentor": ["/Users/yijialiu/anaconda3/envs/ud_segmentor/bin/python", "/Users/yijialiu/work/projects/conll2018/exec/uppsala_segmentor.py"],
+        "trans_parser": ["/Users/yijialiu/work/projects/conll2018/exec/lstmparse"],
+        "thai_preprocessor": ["/Users/yijialiu/anaconda3/envs/py36/bin/python", "/Users/yijialiu/work/projects/conll2018/exec/fmm.py"]
+    },
+    "model": {
+        "char_elmo": "/Users/yijialiu/work/projects/conll2018/models/char_elmo",
+        "word_elmo": "/Users/yijialiu/work/projects/conll2018/models/word_elmo",
+        "sent_segment_model_dir": "/Users/yijialiu/work/projects/conll2018/models/sent_segment_model",
+        "tokenize_model_dir": "/Users/yijialiu/work/projects/conll2018/models/tokenize_model",
+        "postag_model_dir": "/Users/yijialiu/work/projects/conll2018/models/postag_model",
+        "parse_model_dir": "/Users/yijialiu/work/projects/conll2018/models/parse_model",
+        "udpipe_model_dir": "/Users/yijialiu/work/projects/conll2018/models/udpipe"
+    },
+    "resources": {
+        "word_embeddings": "/Users/yijialiu/work/projects/conll2018/resources/word_embeddings",
+        "bichar_embeddings": "/Users/yijialiu/work/projects/conll2018/resources/bichar_embeddings"
+    }
+}
