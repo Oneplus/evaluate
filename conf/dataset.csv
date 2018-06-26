@@ -76,7 +76,7 @@ UD_Swedish-PUD,sv_pud,sv,sv.pruned.vectors,100,sv.model,udpipe,swedish-lines-ud-
 UD_Swedish-Talbanken,sv_talbanken,sv,sv.pruned.vectors,100,sv.model,udpipe,swedish-talbanken-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,sv_talbanken-ave-v0,TRUE,elmo,lstm,stanford,sv_lines_talbanken-lstm-v[0-2],TRUE
 UD_Thai-PUD,th_pud,th,wiki.zh_th.transformed.vectors,300,,thai_preprocessor,thai_lexicon.txt,,,cp,,cp,,,,stanford,zh_gsd_transfer-none-v0,FALSE,,,stanford,zh_gsd_transfer-none-v0,FALSE
 UD_Turkish-IMST,tr_imst,tr,tr.pruned.vectors,100,tr.model,udpipe,turkish-imst-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,tr_imst-lstm-v0,TRUE,elmo,ave,stanford,tr_imst-ave-v[0-2],TRUE
-UD_Ukrainian-IU,uk_iu,uk,uk.pruned.vectors,100,uk.model,udpipe,ukrainian-iu-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,uk_iu-lstm-v0,TRUE,elmo,ave,stanford,uk_iu_ru_syntagus-ave-v[0-2],TRUE
+UD_Ukrainian-IU,uk_iu,uk,uk.pruned.vectors,100,uk.model,udpipe,ukrainian-iu-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,uk_iu-lstm-v0,TRUE,elmo,lstm,stanford,uk_iu_ru_syntagus-lstm-v[0-2],TRUE
 UD_Upper_Sorbian-UFAL,hsb_ufal,hsb,hsb.pruned.vectors,300,,udpipe,upper_sorbian-ufal-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,,,cp,,,,,trans_parser,hsb_ufal_delex,
 UD_Urdu-UDTB,ur_udtb,ur,ur.pruned.vectors,100,ur.model,udpipe,urdu-udtb-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,ur_udtb-lstm-v0,TRUE,elmo,lstm,stanford,ur_udtb-lstm-v[0-2],TRUE
 UD_Uyghur-UDT,ug_udt,ug,ug.pruned.vectors,100,ug.model,udpipe,uyghur-udt-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,ug_udt-lstm-v0,TRUE,elmo,lstm,stanford,ug_udt-lstm-v[0-2],TRUE
