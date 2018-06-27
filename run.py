@@ -226,7 +226,7 @@ def postag_aux(treebank_conf, global_conf):
     if treebank_conf['tagger_aux'] == '':
         return
 
-    input_file = os.path.join(global_conf['output'], 'tokenized.conllu')
+    input_file = os.path.join(global_conf['output'], 'morphology_tagged.conllu')
     ave_output_file = os.path.join(global_conf['output'], 'words.ave_elmo')
     lstm_output_file = os.path.join(global_conf['output'], 'words.lstm_elmo')
 
@@ -291,7 +291,7 @@ def postag(treebank_conf, global_conf):
     :param global_conf:
     :return:
     """
-    input_file = os.path.join(global_conf['output'], 'tokenized.conllu')
+    input_file = os.path.join(global_conf['output'], 'morphology_tagged.conllu')
     output_file = os.path.join(global_conf['output'], 'tagged.conllu')
     if treebank_conf['tagger'] == 'stanford':
         _postag_stanford(treebank_conf, global_conf, input_file, output_file)
@@ -339,18 +339,29 @@ def _parse_stanford(treebank_conf, global_conf, input_file, output_file):
     """
 
     range_match = re.search('\[(\d)-(\d)\]', treebank_conf['parse_model'])
+
+    need_exchange45 = False
+    final_output_file = output_file
     if range_match is not None:
         model_payloads = []
         for i in range(int(range_match.group(1)), int(range_match.group(2)) + 1):
             model_payloads.append(os.path.join(global_conf['model']['parse_model_dir'],
                                                re.sub('\[\d-\d\]', str(i), treebank_conf['parse_model'])))
         print(range_match.group())
+        if '_transfer' in model_payloads[0]:
+            need_exchange45 = True
+            output_file = output_file + '.45'
+
         cmds = global_conf['exec']['stanford'] + ['--save_dir', model_payloads[0], 'ensemble', input_file,
                                                   '--output_file', output_file,
                                                   '--sum_type', 'prob',
                                                   '--other_save_dirs'] + model_payloads[1:]
     else:
         model_path = os.path.join(global_conf['model']['parse_model_dir'], treebank_conf['parse_model'])
+        if '_transfer' in model_path:
+            need_exchange45 = True
+            output_file = output_file + '.45'
+
         cmds = global_conf['exec']['stanford'] + ['--save_dir', model_path, 'parse', input_file,
                                                   '--output_file', output_file]
 
@@ -373,6 +384,13 @@ def _parse_stanford(treebank_conf, global_conf, input_file, output_file):
     print(' '.join(cmds), file=sys.stderr)
     pipe = subprocess.Popen(cmds)
     pipe.wait()
+
+    if need_exchange45:
+        cmds = global_conf['exec']['exchange45'] + [output_file, final_output_file]
+        print('running exchange45 commands for {}'.format(treebank_conf['code']), file=sys.stderr)
+        print(' '.join(cmds), file=sys.stderr)
+        pipe = subprocess.Popen(cmds)
+        pipe.wait()
 
 
 def _parse_trans_parser(treebank_conf, global_conf, input_file, output_file):
