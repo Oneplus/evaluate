@@ -64,7 +64,7 @@ UD_Polish-LFG,pl_lfg,pl,pl.pruned.vectors,100,pl.model,udpipe,polish-lfg-ud-2.2-
 UD_Polish-SZ,pl_sz,pl,pl.pruned.vectors,100,pl.model,udpipe,polish-sz-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,pl_sz-lstm-v0,TRUE,elmo,ave,stanford,pl_sz-ave-v[0-2],TRUE
 UD_Portuguese-Bosque,pt_bosque,pt,pt.pruned.vectors,100,pt.model,uppsala,pt_bosque_uppsala_segmentor,,,cp,,udpipe,portuguese-bosque-ud-2.2-conll18-180430.udpipe,elmo,ave,stanford,pt_bosque-ave-v0,TRUE,elmo,ave,stanford,pt_bosque-ave-v[0-2],TRUE
 UD_Romanian-RRT,ro_rrt,ro,ro.pruned.vectors,100,ro.model,udpipe,romanian-rrt-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,ro_rrt-lstm-v0,TRUE,elmo,ave,stanford,ro_rrt-ave-v[0-2],TRUE
-UD_Russian-Taiga,ru_taiga,ru,ru.pruned.vectors,100,ru.model,udpipe,russian-taiga-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,ru_syntagrus_taiga-ave-v0,TRUE,elmo,lstm,stanford,ru_syntagrus_taiga-lstm-v[0-2],TRUE
+UD_Russian-Taiga,ru_taiga,ru,ru.pruned.vectors,100,ru.model,udpipe,russian-taiga-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,ru_syntagrus_taiga-ave-v0,TRUE,,,stanford,ru_syntagrus_taiga-none-v[0-2],FALSE
 UD_Russian-SynTagRus,ru_syntagrus,ru,ru.pruned.vectors,100,ru.model,udpipe,russian-syntagrus-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,ru_syntagrus-ave-v0,TRUE,elmo,lstm,stanford,ru_syntagrus-lstm-v[0-2],TRUE
 UD_Slovak-SNK,sk_snk,sk,sk.pruned.vectors,100,sk.model,udpipe,slovak-snk-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,sk_snk-ave-v0,TRUE,elmo,lstm,stanford,sk_snk-lstm-v[0-2],TRUE
 UD_Slovenian-SST,sl_sst,sl,sl.pruned.vectors,100,sl.model,udpipe,slovenian-sst-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,sl_ssj_sst-lstm-v0,TRUE,elmo,ave,stanford,sl_ssj_sst-ave-v[0-2],TRUE
