@@ -25,9 +25,9 @@ UD_Spanish-AnCora,es_ancora,es,es.pruned.vectors,100,es.model,udpipe,spanish-anc
 UD_Estonian-EDT,et_edt,et,et.pruned.vectors,100,et.model,uppsala,et_edt_uppsala_segmentor,,,cp,,udpipe,estonian-edt-ud-2.2-conll18-180430.udpipe,elmo,lstm,stanford,et_edt-lstm-v0,TRUE,elmo,ave,stanford,et_edt-ave-v[0-2],TRUE
 UD_Basque-BDT,eu_bdt,eu,eu.pruned.vectors,100,eu.model,udpipe,basque-bdt-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,eu_bdt-ave-v0,TRUE,elmo,lstm,stanford,eu_bdt-lstm-v[0-2],TRUE
 UD_Persian-Seraji,fa_seraji,fa,fa.pruned.vectors,100,fa.model,udpipe,persian-seraji-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,fa_seraji-ave-v0,TRUE,elmo,ave,stanford,fa_seraji-ave-v[0-2],TRUE
-UD_Finnish-FTB,fi_ftb,fi,fi.pruned.vectors,100,fi.model,uppsala,fi_tdt_uppsala_segmentor,,,cp,,udpipe,finnish-ftb-ud-2.2-conll18-180430.udpipe,elmo,ave,stanford,fi_ftb-ave-v0,TRUE,elmo,lstm,stanford,fi_ftb-lstm-v[0-2],TRUE
+UD_Finnish-FTB,fi_ftb,fi,fi.pruned.vectors,100,fi.model,uppsala,finnish-ftb-ud-2.2-conll18-180430.udpipe,,,cp,,udpipe,finnish-ftb-ud-2.2-conll18-180430.udpipe,elmo,ave,stanford,fi_ftb-ave-v0,TRUE,elmo,lstm,stanford,fi_ftb-lstm-v[0-2],TRUE
 UD_Finnish-PUD,fi_pud,fi,fi.pruned.vectors,100,fi.model,udpipe,finnish-ftb-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,fi_ftb-ave-v0,TRUE,elmo,lstm,stanford,fi_ftb-lstm-v[0-2],TRUE
-UD_Finnish-TDT,fi_tdt,fi,fi.pruned.vectors,100,fi.model,udpipe,finnish-tdt-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,fi_tdt-lstm-v0,TRUE,elmo,lstm,stanford,fi_tdt-lstm-v[0-2],TRUE
+UD_Finnish-TDT,fi_tdt,fi,fi.pruned.vectors,100,fi.model,udpipe,fi_tdt_uppsala_segmentor,,,cp,,cp,,elmo,lstm,stanford,fi_tdt-lstm-v0,TRUE,elmo,lstm,stanford,fi_tdt-lstm-v[0-2],TRUE
 UD_French-Spoken,fr_spoken,fr,fr.pruned.vectors,100,fr.model,udpipe,french-spoken-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,fr_spoken-lstm-v0,TRUE,elmo,ave,stanford,fr_gsd_sequoia_spoken-ave-v[0-2],TRUE
 UD_French-GSD,fr_gsd,fr,fr.pruned.vectors,100,fr.model,udpipe,french-gsd-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,fr_gsd-lstm-v0,TRUE,elmo,ave,stanford,fr_gsd-ave-v[0-2],TRUE
 UD_French-Sequoia,fr_sequoia,fr,fr.pruned.vectors,100,fr.model,udpipe,french-sequoia-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,ave,stanford,fr_sequoia-ave-v0,TRUE,elmo,ave,stanford,fr_sequoia-ave-v[0-2],TRUE
