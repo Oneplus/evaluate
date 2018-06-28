@@ -505,7 +505,8 @@ def main():
     dataset_conf = load_conf()
 
     meta = json.load(open(os.path.join(opts.input_dir, 'metadata.json')))
-    for info in meta:
+    for info in sorted(meta, key=lambda entry: (entry['lcode'] in ('zh', 'ja', 'vi'), entry['lcode'], entry['tcode']),
+                       reverse=True):
         for f in glob.glob(os.path.join(global_conf['output'], '*')):
             os.remove(f)
 

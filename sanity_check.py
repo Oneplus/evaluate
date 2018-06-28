@@ -311,8 +311,10 @@ def main():
     dataset_conf = load_conf()
 
     meta = json.load(open(os.path.join(opts.input_dir, 'metadata.json')))
-    for info in meta:
+    for info in sorted(meta, key=lambda entry: (entry['lcode'] in ('zh', 'ja', 'vi'), entry['lcode'], entry['tcode']),
+                       reverse=True):
         code = '{0}_{1}'.format(info['lcode'], info['tcode'])
+        print('checking {0} ...'.format(code), file=sys.stderr)
         treebank_conf = dataset_conf[code]
 
         # sentence segmentation
