@@ -406,6 +406,7 @@ def _parse_stanford(treebank_conf, global_conf, input_file, output_file):
         print(' '.join(cmds), file=sys.stderr)
         pipe = subprocess.Popen(cmds)
         pipe.wait()
+        os.remove(output_file)
 
 
 def _parse_trans_parser(treebank_conf, global_conf, input_file, output_file):
