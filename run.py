@@ -103,7 +103,8 @@ def tokenize_aux(treebank_conf, global_conf):
     lstm_output_file = os.path.join(global_conf['output'], 'chars.lstm_elmo')
 
     model_path = os.path.join(global_conf['model']['char_elmo'], treebank_conf['tokenize_aux_model'])
-    cmds = global_conf['exec']['elmo'] + ['test', '--model', model_path, '--input_format', 'conll_char',
+    input_format = 'conll_char_vi' if treebank_conf['code'].split('_')[0] == 'vi' else 'conll_char'
+    cmds = global_conf['exec']['elmo'] + ['test', '--model', model_path, '--input_format', input_format,
                                           '--input', input_file, '--output_ave', ave_output_file,
                                           '--output_lstm', lstm_output_file]
 
