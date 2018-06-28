@@ -135,9 +135,8 @@ def _tokenize_scir_tokenizer(treebank_conf, global_conf, input_file, output_file
     else:
         models = os.path.join(global_conf['model']['tokenize_model_dir'], model)
 
-    lang = treebank_conf['code'].split('_')[0]
     cmds = global_conf['exec']['scir_tokenizer'] + ['test', '--input', input_file, '--output', output_file,
-                                                    '--lang', lang, '--models', models, '--use_elmo', '--test_elmo_path',
+                                                    '--models', models, '--use_elmo', '--test_elmo_path',
                                                     os.path.join(global_conf['output'], 'chars.ave_elmo')]
     print('running tokenize commands for {}'.format(treebank_conf['code']), file=sys.stderr)
     print(' '.join(cmds), file=sys.stderr)
