@@ -164,12 +164,15 @@ def tokenize(treebank_conf, global_conf):
     input_file = os.path.join(global_conf['output'], 'segmented.conllu')
     output_file = os.path.join(global_conf['output'], 'tokenized.conllu')
 
-    if treebank_conf['tokenizer'] == 'cp':
+    try:
+        if treebank_conf['tokenizer'] == 'cp':
+            _tokenize_copy(input_file, output_file)
+        elif treebank_conf['tokenizer'] == 'scir_tokenizer':
+            _tokenize_scir_tokenizer(treebank_conf, global_conf, input_file, output_file)
+        else:
+            raise ValueError('Unknown tokenizer {0}'.format(treebank_conf['tokenizeer']))
+    except Exception:
         _tokenize_copy(input_file, output_file)
-    elif treebank_conf['tokenizer'] == 'scir_tokenizer':
-        _tokenize_scir_tokenizer(treebank_conf, global_conf, input_file, output_file)
-    else:
-        raise ValueError('Unknown tokenizer {0}'.format(treebank_conf['tokenizeer']))
 
 
 def _morphology_tag_udpipe(treebank_conf, global_conf, input_file, output_file):
@@ -209,12 +212,16 @@ def morphology_tag(treebank_conf, global_conf):
     """
     input_file = os.path.join(global_conf['output'], 'tokenized.conllu')
     output_file = os.path.join(global_conf['output'], 'morphology_tagged.conllu')
-    if treebank_conf['morphology_tagger'] == 'udpipe':
-        _morphology_tag_udpipe(treebank_conf, global_conf, input_file, output_file)
-    elif treebank_conf['morphology_tagger'] == 'cp':
+
+    try:
+        if treebank_conf['morphology_tagger'] == 'udpipe':
+            _morphology_tag_udpipe(treebank_conf, global_conf, input_file, output_file)
+        elif treebank_conf['morphology_tagger'] == 'cp':
+            _morphology_tag_copy(input_file, output_file)
+        else:
+            raise ValueError('Unknown tagger {0}'.format(treebank_conf['tagger']))
+    except Exception:
         _morphology_tag_copy(input_file, output_file)
-    else:
-        raise ValueError('Unknown tagger {0}'.format(treebank_conf['tagger']))
 
 
 def postag_aux(treebank_conf, global_conf):
@@ -294,12 +301,16 @@ def postag(treebank_conf, global_conf):
     """
     input_file = os.path.join(global_conf['output'], 'morphology_tagged.conllu')
     output_file = os.path.join(global_conf['output'], 'tagged.conllu')
-    if treebank_conf['tagger'] == 'stanford':
-        _postag_stanford(treebank_conf, global_conf, input_file, output_file)
-    elif treebank_conf['tagger'] == 'cp':
+
+    try:
+        if treebank_conf['tagger'] == 'stanford':
+            _postag_stanford(treebank_conf, global_conf, input_file, output_file)
+        elif treebank_conf['tagger'] == 'cp':
+            _postag_copy(input_file, output_file)
+        else:
+            raise ValueError('Unknown tagger {0}'.format(treebank_conf['tagger']))
+    except Exception:
         _postag_copy(input_file, output_file)
-    else:
-        raise ValueError('Unknown tagger {0}'.format(treebank_conf['tagger']))
 
 
 def parse_aux(treebank_conf, global_conf):
@@ -435,11 +446,15 @@ def parse(treebank_conf, global_conf, output_dir, info):
     """
     input_file = os.path.join(global_conf['output'], 'tagged.conllu')
     output_file = os.path.join(output_dir, info['outfile'])
-    if treebank_conf['parser'] == 'stanford':
-        _parse_stanford(treebank_conf, global_conf, input_file, output_file)
-    elif treebank_conf['parser'] == 'trans_parser':
-        _parse_trans_parser(treebank_conf, global_conf, input_file, output_file)
-    else:
+
+    try:
+        if treebank_conf['parser'] == 'stanford':
+            _parse_stanford(treebank_conf, global_conf, input_file, output_file)
+        elif treebank_conf['parser'] == 'trans_parser':
+            _parse_trans_parser(treebank_conf, global_conf, input_file, output_file)
+        else:
+            raise ValueError('Unknown parser {0}'.format(treebank_conf['parser']))
+    except Exception:
         shutil.copy(input_file, output_file)
 
 
