@@ -172,6 +172,7 @@ def tokenize(treebank_conf, global_conf):
         else:
             raise ValueError('Unknown tokenizer {0}'.format(treebank_conf['tokenizeer']))
     except Exception:
+        print('Tokenize failed, downgrade to copy', file=sys.stderr)
         _tokenize_copy(input_file, output_file)
 
 
@@ -221,6 +222,7 @@ def morphology_tag(treebank_conf, global_conf):
         else:
             raise ValueError('Unknown tagger {0}'.format(treebank_conf['tagger']))
     except Exception:
+        print('Morphology tag failed, downgrade to copy', file=sys.stderr)
         _morphology_tag_copy(input_file, output_file)
 
 
@@ -310,6 +312,7 @@ def postag(treebank_conf, global_conf):
         else:
             raise ValueError('Unknown tagger {0}'.format(treebank_conf['tagger']))
     except Exception:
+        print('Postag failed, downgrade to copy', file=sys.stderr)
         _postag_copy(input_file, output_file)
 
 
@@ -455,6 +458,7 @@ def parse(treebank_conf, global_conf, output_dir, info):
         else:
             raise ValueError('Unknown parser {0}'.format(treebank_conf['parser']))
     except Exception:
+        print('Parse failed, downgrade to copy', file=sys.stderr)
         shutil.copy(input_file, output_file)
 
 
