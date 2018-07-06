@@ -1,0 +1,4 @@
+treebank,code,lang,embeddings,embedding_dim,elmo_model,sentence_segmentor,segment_model,tokenize_aux,tokenize_aux_model,tokenizer,tokenize_model,morphology_tagger,morphology_model,tagger_aux,tagger_aux_args,tagger,tag_model,tag_need_elmo,parser_aux,parser_aux_args,parser,parse_model,parse_need_elmo
+EPE_events,en_events,en,en.pruned.vectors,100,en.model,udpipe,english-ewt-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,en_ewt-lstm-v0,TRUE,elmo,ave,stanford,en_ewt-ave-v[0-2],TRUE
+EPE_negation,en_negation,en,en.pruned.vectors,100,en.model,udpipe,english-ewt-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,en_ewt-lstm-v0,TRUE,elmo,ave,stanford,en_ewt-ave-v[0-2],TRUE
+EPE_opinion,en_opinion,en,en.pruned.vectors,100,en.model,udpipe,english-ewt-ud-2.2-conll18-180430.udpipe,,,cp,,cp,,elmo,lstm,stanford,en_ewt-lstm-v0,TRUE,elmo,ave,stanford,en_ewt-ave-v[0-2],TRUE
