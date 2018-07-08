@@ -414,9 +414,10 @@ achieve better MLAS and BLEX scores.
 		\textit{nl} & apino & lassysmall & \textit{sv} & lines & talbanken & \textit{ko} & gsd & kaist & \textit{it} & isdt & postwita \\
 		\# train & 12.2 & 5.8 & \# train & 2.7 & 4.3 & \# train & 4.4 & 23.0 & \# train & 13.1 & 5.4 \\
 		\hline
-		apino & 91.87 & & lines & 84.64 & & gsd & 82.05 & & isdt & \textbf{92.01} & \\
-		lassysmall & & 86.82 & talbanken & & 86.39 & kaist & & \textbf{87.83} & postwita & & 80.79 \\
-		\hline
+%		apino & 91.87 & & lines & 84.64 & & gsd & 82.05 & & isdt & \textbf{92.01} & \\
+%		lassysmall & & 86.82 & talbanken & & 86.39 & kaist & & \textbf{87.83} & postwita & & 80.79 \\
+		single & 91.87 & 86.82 & single & 84.64 & 86.39 & single & 82.05 & \textbf{87.83} & single & \textbf{92.01} & 80.79 \\
+		%\hline
 		concat. & \textbf{92.08} & \textbf{89.34} & concat. & \textbf{85.76} & \textbf{86.77} & concat. & \textbf{83.73} & 87.61 & concat.& 91.80 & \textbf{82.54} \\
 		%	\hline
 		\vspace*{0.5em}
@@ -425,13 +426,15 @@ achieve better MLAS and BLEX scores.
 		\textit{en} & ewt & gum & lines & \textit{fr} & gsd & sequoia & spoken \\
 		\# train & 12.5 & 2.9 & 2.7 & \# train & 14.6 & 2.2 & 1.2\\
 		\hline
-		ewt & \textbf{88.75} & & & gsd & \textbf{91.64} & & \\
-		gum & & \textbf{86.52} & & sequoia & & \textbf{91.44} & \\
-		lines & & & 83.86 & spoken & & & 79.06 \\
-		\hline
+%		ewt & \textbf{88.75} & & & gsd & \textbf{91.64} & & \\
+%		gum & & \textbf{86.52} & & sequoia & & \textbf{91.44} & \\
+%		lines & & & 83.86 & spoken & & & 79.06 \\
+		single & \textbf{88.75} & \textbf{86.52} & 83.86 & single &\textbf{91.64} & \textbf{91.44} & 79.06 \\
+		%\hline
 		concat. & 88.74 & 85.65 & \textbf{85.30} & concat. & 91.44 & 90.51 & \textbf{81.99} \\
 	\end{tabular}
 	\caption{The developement performance with cross-domain concatenation for languages which has multiple treebanks.
+		\textit{single} means training the parser on it own treebank without concatenation.
 		\textit{\# train} shows the number of training sentences in the treebank measured in thousand.}\label{tbl:confuse-mat}
 \end{table*}
 
@@ -570,7 +573,7 @@ are still necessary.
   \centering
   \small
   \begin{tabular}{rccc}
-     & $\Delta$-sent. & \textit{udpipe} & \textit{improved} \\
+     & $\Delta$-sent. & \textit{udpipe} & \textit{uppsala} \\
     \hline
     fi\_tdt & +0.69 & 88.13 & \textbf{88.67} \\
     et\_edt & +1.22 & 86.33 & \textbf{86.36} \\
@@ -587,16 +590,16 @@ are still necessary.
     it\_postwita & +30.40 &74.91 & \textbf{79.26} \\
     \hline
     \hline
-    & $\Delta$-word & \textit{udpipe} & \textit{improved} \\
+    & $\Delta$-word & \textit{udpipe} & \textit{scir} \\
     ja\_gsd & +4.07 & 80.53 & \textbf{85.23} \\
     zh\_gsd & +7.16 & 66.16 & \textbf{75.78} \\
     vi\_vtb & +9.02 & 48.58 & \textbf{57.53} \\
   \end{tabular}
-\caption{The effect of improved preprocessing.
-	In the first block, we show the effect of sentence segmentation improvement.
-	$\Delta$-sent. shows the difference in sentence segmentation F-score the \textit{improved} preprocess compared against \textit{udpipe}.
-	In the second block, we show the effect of word segmentation improvement.
-	$\Delta$-word shows the  difference word segmentation in F-score.}\label{tbl:preprocess}
+\caption{The effects of improved preprocessing on the parsing performance.
+	The first block shows the effects of sentence segmentation improvement.
+	$\Delta$-sent. means the sentence segmentation F-score  difference between Uppsala segmentor and \textit{udpipe}.
+	The second block shows the effects of word segmentation improvement.
+	$\Delta$-word means the word segmentation in F-score difference  between SCIR segmentor and \textit{udpipe}.}\label{tbl:preprocess}
 \end{table}
 
 \begin{table*}[t]
