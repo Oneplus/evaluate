@@ -118,7 +118,7 @@ the effects of ELMo, parser ensemble, and treebank concatenation.
 Experimental results show that these techniques substantially improve the parsing performance.
 Using these techniques, our system achieved an averaged LAS of 75.84 on the official test set
 and was ranked the first according to LAS \cite{udst:overview}.
-This result outperforms the others by a large margin.
+This result significantly outperforms the others by a large margin.\footnote{\url{http://universaldependencies.org/conll18/results.html}}
 
 \section{Deep Biaffine Parser}\label{sec:biaffine}
 
@@ -129,10 +129,9 @@ for each word and then predict POS tags and dependency relations
 using the representation.
 For the tagger whose input is the word alone,
 this representation is calculated as
-\begin{align*}
-\mathbf{r}_i & =  \text{BiLSTM}(\mathbf{r}_0, (\mathbf{v}_1^{(word)}, ..., \mathbf{v}_n^{(word)}))_i \\
-\mathbf{h}_i, \mathbf{c}_i & = \text{split}(\mathbf{r}_i),
-\end{align*}
+\[
+\mathbf{h}_i =  \text{BiLSTM}(\mathbf{h}_0, (\mathbf{v}_1^{(word)}, ..., \mathbf{v}_n^{(word)}))_i
+\]
 where $\mathbf{v}_i^{(word)}$ is the word embeddings.
 After getting $\mathbf{h}_i$,
 the scores of tags are calculated as
@@ -148,8 +147,7 @@ For the parser whose inputs are the word and POS tag,
 such representation is calculated as
 \begin{align*}
 \mathbf{x}_i & =  \mathbf{v}_i^{(word)} \oplus \mathbf{v}_i^{(tag)} \\
-\mathbf{r}_i & =  \text{BiLSTM}(\mathbf{r}_0, (\mathbf{x}_1, ..., \mathbf{x}_n))_i \\
-\mathbf{h}_i, \mathbf{c}_i & = \text{split}(\mathbf{r}_i)\text{.}
+\mathbf{h}_i & =  \text{BiLSTM}(\mathbf{h}_0, (\mathbf{x}_1, ..., \mathbf{x}_n))_i
 \end{align*}
 And a pair of representations are fed into a biaffine classifier
 to predict the possibility that there is a dependency arc between these two words.
@@ -197,10 +195,9 @@ and training the LSTM network with language modeling objective
 on large-scale raw text.
 More specifically, the $\mathbf{ELMo}_i$ is computed
 by first computing the hidden representation $\mathbf{h}_i^{(LM)}$ as
-\begin{align*}
-\mathbf{r}_i^{(LM)} & =  \text{BiLSTM}^{(LM)}(\mathbf{r}_0^{(LM)}, (\mathbf{\tilde{v}}_1, ..., \mathbf{\tilde{v}}_n))_i \\
-\mathbf{h}_i^{(LM)}, \mathbf{c}_i^{(LM)} & = \text{split}(\mathbf{r}_i^{(LM)})\text{,}
-\end{align*}
+\[
+\mathbf{h}_i^{(LM)} =  \text{BiLSTM}^{(LM)}(\mathbf{h}_0^{(LM)}, (\mathbf{\tilde{v}}_1, ..., \mathbf{\tilde{v}}_n))_i
+\]
 where $\mathbf{\tilde{v}}_i$ is the output of a CNN over characters,
 then attentively summarizing and scaling different layers of  $\mathbf{h}_{i, j}^{(LM)}$
 with $s_j$ and $\gamma$
@@ -222,8 +219,8 @@ which means
 \]
 In our preliminary experiments, using $ \mathbf{h}_{i, 0}^{(LM)}$ for $\mathbf{ELMo}_i$
 yields better performance on some treebanks.
-In our final submission, we decide whether using $\sum_{j=0}^{2} \mathbf{h}_{i, j}^{(LM)}$
-or $ \mathbf{h}_{i, 0}^{(LM)}$ by the development performance.
+In our final submission, we decide using either $\sum_{j=0}^{2} \mathbf{h}_{i, j}^{(LM)}$
+or $ \mathbf{h}_{i, 0}^{(LM)}$ by their development performance.
 
 After getting $\mathbf{ELMo}_i$, we project it
 to the same dimension as $\mathbf{v}_i^{(word)}$ and
@@ -248,7 +245,7 @@ neural network trained with different initialization
 leads to performance improvements.
 We follow their works and train three parsers with different initialization,
 then ensemble these parsers by averaging their softmaxed output scores as 
-\[\mathbf{s}_i^{(rel)} = \frac{1}{3} \sum_{m=1}^{3} \text{softmax}(\mathbf{s}_i^{(m, rel)})\].
+\[\mathbf{s}_i^{(rel)} = \frac{1}{3} \sum_{m=1}^{3} \text{softmax}(\mathbf{s}_i^{(m, rel)}).\]
 
 \section{Treebank Concatenation}\label{sec:comb}
 
@@ -265,7 +262,7 @@ is concatenated.
 
 In our system, we tried cross-domain concatenation on
 \textit{nl}, \textit{sv}, \textit{ko}, \textit{it}, \textit{en}, \textit{fr},
-\textit{gl}, \textit{la}, \textit{ru}, and \textit{sl}.
+\textit{gl}, \textit{la}, \textit{ru}, and \textit{sl}.\footnote{We opt out \textit{cs}, \textit{fi}, and \textit{pl} because all the treebanks of these languages are relatively large which have more than 10K training sentences.}
 We also tried cross-lingual concatenation on \textit{ug-tr}, \textit{uk-ru}, \textit{ga-en},
 and \textit{sme-fi} following \cite{che-EtAl:2017:K17-3}.
 However, due to the variance in vocabulary, grammatical genre, and even annotation, 
@@ -273,7 +270,7 @@ treebank concatenation does not guarantee to improve the model's performance.
 We decide the usage of concatenation by examining their development set performance.
 For some small treebanks which do not have development set, whether using treebank concatenation
 is decided through 5-fold cross validation.\footnote{We use \textit{udpipe}
-	for the experiments of these part
+	for this part of experiments
 	because we consider the effect of treebank concatenation as
 	being irrelevant to the parser architecture
 	and \textit{udpipe} has the speed advantage in both training and testing.}
@@ -294,19 +291,9 @@ in Section \ref{sec:treebank-concat}.
 %
 
 \section{Low Resources Languages}\label{sec:low}
-\begin{table}[t]
-	\centering
-	\small
-	\begin{tabular}{r|cccccccc}
-		target & br & fo & hy & kk & bxr & kmr & hsb & th \\
-		\hline
-		source & ga & no & et & tr &  hi & fa & pl & zh \\
-	\end{tabular}
-\caption{Cross-lingual transfer settings for low-resource target languages.}\label{tbl:low-res-trans}
-\end{table}
 
 In the shared task, 5 languages are presented with training set of less than 50 sentences.
-4 languages don't even have any training data.
+4 languages do not even have any training data.
 It's difficult to train reasonable parser on these low-resource languages.
 We deal with these treebanks by adopting the word embedding transfer idea 
 of \citet{guo-EtAl:2015:ACL-IJCNLP2}.
@@ -316,26 +303,41 @@ to the space of low-resource language using the bilingual word vectors transform
 and trained a parser using the source treebank
 with only pretrained word embeddings on the transformed space
 as $\mathbf{v}_i^{(word)} = \mathbf{p}_i$.
-The transformation matrix is automatically learned on the \textit{fasttext} word embedding
-using the same tokens between two languages (like punctuations).
+The transformation matrix is automatically learned on the \textit{fasttext} word embeddings
+using the same tokens shared by two languages (like punctuations).
 
+\begin{table}[t]
+	\centering
+	\small
+	\begin{tabular}{r|cccccccc}
+		\textit{target} & br & fo & th &hy & kk & bxr & kmr & hsb \\
+		\hline
+		\textit{source} & ga & no & zh & et & tr &  hi & fa & pl \\
+	\end{tabular}
+	\caption{Cross-lingual transfer settings for low-resource target languages.}\label{tbl:low-res-trans}
+\end{table}
 Table \ref{tbl:low-res-trans} shows our source languages for the target low-resource languages.
 For the treebank with a few training data, its  source language is decided by
-testing the source parser's performance on the training data.\footnote{We use \textit{udpipe} for this test.}
-For the treebank without any training data, we choose the source language according to their language family.
+testing the source parser's performance on the training data.\footnote{We use \textit{udpipe} for this test.
+	When training the parser, the small set of target training data is also used.}
+For the treebank without any training data, we choose the source language according to their language family.\footnote{Thai
+	does not have a treebank in the same family. We choose Chinese as source language because of geographical closeness
+	and both these two languages are SVO in typology.}
 
-\textit{Naija} presents an exception for our method since it doesn't have \textit{fasttext}
+\textit{Naija} presents an exception for our method since it does not have \textit{fasttext}
 word embeddings and embedding transformation is infeasible.
-Since it's a dialect of English, we use the full pipeline of \textit{en\_ewt} for \textit{pcm\_nsc}.
+Since it's a dialect of English, we use the full pipeline of \textit{en\_ewt} for \textit{pcm\_nsc} instead.
 \begin{figure*}[t]
+	\begin{subfigure}{\textwidth}
 	\includegraphics[width=\textwidth]{effects_elmo_tagger}
-	\caption{The effects of ELMo on POS tagging.
-		Treebanks are sorted according to the number of training sentences from left to right.}\label{fig:elmo-effect-pos}
-\end{figure*}
-\begin{figure*}[t]
+	\caption{The effects of ELMo on POS tagging}\label{fig:elmo-effect:pos}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
 	\includegraphics[width=\textwidth]{effects_elmo_parser}
-	\caption{The effects of ELMo on parsing.
-		Treebanks are sorted according to the number of training sentences from left to right.}\label{fig:elmo-effect-par}
+	\caption{The effects of ELMo on parsing}\label{fig:elmo-effect:par}
+	\end{subfigure}
+	\caption{The effects of ELMo.
+		Treebanks are sorted by the number of training sentences from left to right.}\label{fig:elmo-effect}
 \end{figure*}
 
 \section{Preprocessing}
@@ -369,22 +371,24 @@ Tokenization is non-trivial for languages
 which do not have explicit word boundary markers, like Chinese, Japanese, and Vietnamese.
 We develop our own tokenizer for these three languages.\footnote{note as SCIR segmentor henceforth.}
 Following \citet{che-EtAl:2017:K17-3} and \citet{10.1007/978-3-319-69005-6_6}, we model the tokenization as labeling the
-word boundary tag on character and 
+word boundary tag\footnote{We use the BIES scheme.} on character and 
 use features derived from large-scale unlabeled data to further improve the performance.\footnote{For Vietnamese where whitespaces occur both inter- and intra-words, we treat the whitespace-separated token as a character.}
 In addition to the pointwise mutual information (PMI), we also incorporate
 the character ELMo into our tokenizer.
+Embeddings of these features are concatenated along with a bigram character embeddings
+as input.
 These techniques lead to the best tokenization performance on all the related treebanks
 and the average improvement over \textit{udpipe} baseline is 7.5 in tokenization F-score.\footnote{\textit{ja\_gsd}, \textit{ja\_modern}, \textit{vi\_vtb}, and \textit{zh\_gsd}.}
 
 \subsection{Preprocessing for Thai}
 
 Thai language presents unique challenge in the preprocessing.
-Our survey on the Thai Wikipedia indicates that there is no explicit sentence delimiter for Thai language
+Our survey on the Thai Wikipedia indicates that there is no explicit sentence delimiter 
 and obtaining Thai words requires tokenization.
-To this remedy, we use space as sentence delimiter and
+To this remedy, we use the whitespace as sentence delimiter and
 use the lexicon-based word segmentation -- forward maximum matching algorithm
 for Thai tokenization.
-Our lexicon is derived from the \textit{fasttext} word embeddings.
+Our lexicon is derived from the \textit{fasttext} word embeddings by preserving the top 10\% frequent words.
 
 \subsection{Lemmatization and Morphology Tagging}
 We did not make an effort on lemmatization and morphology tagging,
@@ -396,75 +400,11 @@ we expect it to improve both the lemmatization and morphology tagging and
 achieve better MLAS and BLEX scores.
 
 \section{Implementation Details}
-
-\subsection{Pretrained Word Embeddings}
-We use the 100-dimensional pretrained word embeddings released by the shared task
-for the large languages.
-For the small languages and low-resource languages where cross-lingual transfer is required,
-we use the 300-dimensional \textit{fasttext} word embeddings.
-\textit{fro\_srcmf} presents the only exceptions and we use the French embeddings instead.
-For all the embeddings, we filter the top 10\% frequent words.
-
-\subsection{ELMo}
-We use the same hyperparameter settings as \citet{N18-1202} for $\text{BiLSTM}^{(LM)}$
-and the character CNN.
-We train their parameters
-as training a bidirectional language model
-on a randomly sampled subset of raw text released by the shared task.
-More specifically, for each language, we randomly sample 20 million words.
-Adam optimizer \cite{DBLP:journals/corr/KingmaB14} with default settings are used.
-The training of ELMo on one language takes roughly 3 days on an NVIDIA P100 GPU.
-
-\subsection{Biaffine Parser}
-We use the same hyperparameter settings
-as \citet{dozat-qi-manning:2017:K17-3}.
-When trained with ELMo, we use a dropout of 33\% on the projected vectors.
-
-\subsection{SCIR Segmentor}
-We use a 50-dimensional character bigram embeddings as input
-and single layer LSTM for the sequence labeling model.
-The character ELMo is trained in the same way with the word ELMo.
-The final model is an ensemble of five single segmentors.
-
-\subsection{Uppsala Segmentor}
-We use the default settings for the Uppsala segmentor and the
-final model is an ensemble of three single segmentors.
-
-\section{Results}
 \begin{figure*}[t]
 	\includegraphics[width=\textwidth]{effects_elmo_ensemble}
 	\caption{The effects of ensemble on parsing.
 		Treebanks are sorted according to the number of training sentences from left to right.}\label{fig:elmo-effect-ens}
 \end{figure*}
-
-%\subsection{Settings}
-%
-%\paragraph{Pretrained Word Embeddings.}
-%For large treebank, we use the 100-dimensional word embeddings as $\mathbf{p}_i$
-%in both the biaffine tagger and parser.
-
-\subsection{Effects of ELMo}
-
-We study the effect of ELMo on the large treebanks and report
-the results of singe tagger and parser with and without ELMo.
-Figure \ref{fig:elmo-effect-pos} shows the tagger results on the development set
-and Figure \ref{fig:elmo-effect-par} 
-shows the parser results.
-Using ELMo in the tagger leads to a macro-averaged improvement of 0.56\% in UPOS
-and the macro-averaged error reduction is 17.83\%.
-Using ELMo in the parser leads to a macro-averaged improvement 
-of 0.84\% in LAS and
-the macro-averaged error reduction is 7.88\%.
-
-ELMo improves the tagging performance almost on every treebank,
-except for \textit{zh\_gsd} and \textit{gl\_ctg}.
-Similar trends are witnessed in the parsing experiments with \textit{ko\_kaist}
-and \textit{pl\_lfg} being the only treebanks that ELMo slightly worsens the performance.
-
-We also study the relative improvements against the size of the treebank.
-The line in Figure \ref{fig:elmo-effect-pos} and Figure \ref{fig:elmo-effect-par}
-shows the error reduction from using ELMo on each treebank.
-However, no clear relation is revealed between the treebank size and the gains using ELMo.
 \begin{table*}[t]
 	\centering
 	\small
@@ -492,9 +432,97 @@ However, no clear relation is revealed between the treebank size and the gains u
 		concat. & 88.74 & 85.65 & \textbf{85.30} & concat. & 91.44 & 90.51 & \textbf{81.99} \\
 	\end{tabular}
 	\caption{The developement performance with cross-domain concatenation for languages which has multiple treebanks.
-		\textit{\# train} shows the number of training sentences in the treebank measured in thousand.
-		We opt out \textit{cs}, \textit{fi}, and \textit{pl} because all the treebanks of these languages are relatively large (\# train $>$ 10).}\label{tbl:confuse-mat}
+		\textit{\# train} shows the number of training sentences in the treebank measured in thousand.}\label{tbl:confuse-mat}
 \end{table*}
+
+\paragraph{Pretrained Word Embeddings.}
+We use the 100-dimensional pretrained word embeddings released by the shared task
+for the large languages.
+For the small languages and low-resource languages where cross-lingual transfer is required,
+we use the 300-dimensional \textit{fasttext} word embeddings.
+\textit{fro\_srcmf} presents the only exceptions and we use the French embeddings instead.
+For all the embeddings, we filter the top 10\% frequent words.
+
+\paragraph{ELMo.}
+We use the same hyperparameter settings as \citet{N18-1202} for $\text{BiLSTM}^{(LM)}$
+and the character CNN.
+We train their parameters
+as training a bidirectional language model
+on a set of 20 million words data randomly
+sampled from the raw text released by the shared task for each langauge.
+Similar to \citet{N18-1202}, we use the \textit{sample softmax} technique
+to make training on large vocabulary feasible \cite{jean-EtAl:2015:ACL-IJCNLP}.
+However, we use a window of words\footnote{The number of words within the window is 8192.} surrounding the target word
+as negative samples and it shows better performance in our preliminary experiments.
+The training of ELMo on one language takes roughly 3 days on an NVIDIA P100 GPU.
+
+\paragraph{Biaffine Parser.}
+We use the same hyperparameter settings
+as \citet{dozat-qi-manning:2017:K17-3}.
+When trained with ELMo, we use a dropout of 33\% on the projected vectors.
+
+\paragraph{SCIR Segmentor.}
+We use a
+50-dimensional character bigram embeddings.
+For the character ELMo whose input is a character,
+the language model predict next character  in the same way with the word ELMo.
+The final model is an ensemble of five single segmentors.
+
+\paragraph{Uppsala Segmentor.}
+We use the default settings for the Uppsala segmentor and the
+final model is an ensemble of three single segmentors.
+
+\begin{table*}[t]
+	\centering
+	\small
+	\begin{tabular}{rc || rc || rc || rc || rc}
+		\textit{gl} & treegal & \textit{la} & perseus & \textit{no} & nynorsklia & \textit{ru} & taiga & \textit{sl} & sst \\
+		\# train & 0.6 & \# train & 1.3 & \# train & 0.3 & \# train & 0.9 & \# train & 2.1 \\
+		\hline
+		treegal & \textbf{66.71} & perseus & 44.05 & nynorsklia & 51.05 & taiga & 54.70 & sst & 55.15 \\
+		+ctg & 56.73 & +proiel & \textbf{50.78} & +nynorsk & \textbf{58.49} & +syntagrus & \textbf{60.75} & +ssj & \textbf{59.52} \\
+	\end{tabular}
+	\caption{The 5-fold cross validation results for the cross-domain concatenation of treebank which does not have development set.}\label{tbl:confuse-mat2}
+\end{table*}
+\begin{table*}[t]
+	\centering
+	\small
+	%\setlength{\tabcolsep}{5pt}
+	\begin{tabular}{rc || rc || rc || rc}
+		& ug\_udt  &  & uk\_iu & & ga\_idt & & sme\_giella \\
+		\hline
+		ug\_udt & \textbf{69.27} & uk\_iu & 88.84 & ga\_idt & \textbf{62.84} & sme\_giella & \textbf{66.33}\\
+		+tr\_imst & 19.27 & +ru\_syntagus & \textbf{90.74} & +en\_ewt &51.00 & +fi\_ftb & 59.86\\
+	\end{tabular}
+	\caption{Cross-lingual concatenation results. 
+		The results for \textit{ug\_udt} and \textit{uk\_iu} are obtained on the development set.
+		The results for \textit{ga\_idt} and \textit{sme\_giella} are obtained with \textit{udpipe} by 5-fold cross validation.}\label{tbl:cross-ling-concat}
+\end{table*}
+
+\section{Results}
+
+\subsection{Effects of ELMo}
+
+We study the effect of ELMo on the large treebanks and report
+the results of singe tagger and parser with and without ELMo.
+Figure \ref{fig:elmo-effect:pos} shows the tagger results on the development set
+and Figure \ref{fig:elmo-effect:par}
+shows the parser results.
+Using ELMo in the tagger leads to a macro-averaged improvement of 0.56\% in UPOS
+and the macro-averaged error reduction is 17.83\%.
+Using ELMo in the parser leads to a macro-averaged improvement 
+of 0.84\% in LAS and
+the macro-averaged error reduction is 7.88\%.
+
+ELMo improves the tagging performance almost on every treebank,
+except for \textit{zh\_gsd} and \textit{gl\_ctg}.
+Similar trends are witnessed in the parsing experiments with \textit{ko\_kaist}
+and \textit{pl\_lfg} being the only treebanks that ELMo slightly worsens the performance.
+
+We also study the relative improvements against the size of the treebank.
+The line in Figure \ref{fig:elmo-effect:pos} and Figure \ref{fig:elmo-effect:par}
+shows the error reduction from using ELMo on each treebank.
+However, no clear relation is revealed between the treebank size and the gains using ELMo.
 
 \subsection{Effects of Ensemble}
 
@@ -516,25 +544,12 @@ we study the effects of both the \textit{cross-domain concatenation} and \textit
 \paragraph{Cross-Domain Concatenation.}
 
 
-\begin{table*}[t]
-	\centering
-	\small
-	\begin{tabular}{rc || rc || rc || rc || rc}
-		\textit{gl} & treegal & \textit{la} & perseus & \textit{no} & nynorsklia & \textit{ru} & taiga & \textit{sl} & sst \\
-		\# train & 0.6 & \# train & 1.3 & \# train & 0.3 & \# train & 0.9 & \# train & 2.1 \\
-		\hline
-		treegal & \textbf{66.71} & perseus & 44.05 & nynorsklia & 51.05 & taiga & 54.70 & sst & 55.15 \\
-		+ctg & 56.73 & +proiel & \textbf{50.78} & +nynorsk & \textbf{58.49} & +syntagrus & \textbf{60.75} & +ssj & \textbf{59.52} \\
-	\end{tabular}
-	\caption{The 5-fold cross validation results for the cross-domain concatenation for treebank which doesn't have development set.}\label{tbl:confuse-mat2}
-\end{table*}
-
 For the treebanks which have development set, the development performances
 are shown in Table \ref{tbl:confuse-mat}.
 Numbers of sentences in the training set are also shown in this table.
 The general trend is that for the treebank with small training set,
 cross-domain concatenation achieves better performance.
-While for those with large training set, concatenation doesn't improve
+While for those with large training set, concatenation does not improve
 the performance or even worsen the results.
 
 For the small treebanks which do not have development set,
@@ -542,20 +557,6 @@ the 5 fold cross validation results are shown in Table \ref{tbl:confuse-mat2}
 in which concatenation improves most of the treebanks except for \textit{gl\_treegal}.
 
 \paragraph{Cross-Lingual Concatenation.}
-\begin{table*}[t]
-	\centering
-	\small
-	%\setlength{\tabcolsep}{5pt}
-	\begin{tabular}{rc || rc || rc || rc}
-		& ug\_udt  &  & uk\_iu & & ga\_idt & & sme\_giella \\
-		\hline
-		ug\_udt & \textbf{69.27} & uk\_iu & 88.84 & ga\_idt & \textbf{62.84} & sme\_giella & \textbf{66.33}\\
-		+tr\_imst & 19.27 & +ru\_syntagus & \textbf{90.74} & +en\_ewt &51.00 & +fi\_ftb & 59.86\\
-	\end{tabular}
-	\caption{Cross-lingual concatenation results. 
-		The results for \textit{ug\_udt} and \textit{uk\_iu} are obtained on the development set.
-		The results for \textit{ga\_idt} and \textit{sme\_giella} are obtained with \textit{udpipe} by 5-fold cross validation.}\label{tbl:cross-ling-concat}
-\end{table*}
 
 The experimental results of cross-lingual concatenation are shown in Table \ref{tbl:cross-ling-concat}.
 Unfortunately, concatenating treebanks from different languages only
@@ -592,9 +593,114 @@ are still necessary.
     vi\_vtb & +9.02 & 48.58 & \textbf{57.53} \\
   \end{tabular}
 \caption{The effect of improved preprocessing.
-	$\Delta$-sent. shows the relative sentence segmentation improvement of the \textit{improved} preprocess compared against \textit{udpipe}.
-	$\Delta$-word shows the word segmentation improvement.}\label{tbl:preprocess}
+	In the first block, we show the effect of sentence segmentation improvement.
+	$\Delta$-sent. shows the difference in sentence segmentation F-score the \textit{improved} preprocess compared against \textit{udpipe}.
+	In the second block, we show the effect of word segmentation improvement.
+	$\Delta$-word shows the  difference word segmentation in F-score.}\label{tbl:preprocess}
 \end{table}
+
+\begin{table*}[t]
+	\scriptsize
+	\centering
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{rlllcccc}
+		\textit{ltcode} & sent+tokenize & tagger & parser & LAS & Other LAS & rank & diff. \\
+		\hline
+		af\_afribooms & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 85.47 & 85.45 & 1 & 0.02 \\
+		ar\_padt & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 73.63 & 77.06 & 2 & -3.43 \\
+		bg\_btb & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 91.22 & 90.41 & 1 & 0.81 \\
+		br\_keb & udpipe: self & biaffine\_trans: self+ga\_idt & biaffine\_trans*3: self+ga\_idt & 8.54 & 38.64 & 21 & -30.1 \\
+		bxr\_bdt & udpipe: self & biaffine\_trans: self+hi\_hdtb & biaffine\_trans*3: self+hi\_hdtb & 15.44 & 19.53 & 6 & -4.09 \\
+		ca\_ancora & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 91.61 & 90.82 & 1 & 0.79 \\
+		cs\_cac & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 91.61 & 91.00 & 1 & 0.61 \\
+		cs\_fictree & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 92.02 & 91.83 & 1 & 0.19 \\
+		cs\_pdt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 91.68 & 90.57 & 1 & 1.11 \\
+		cs\_pud & udpipe: cs\_pdt & biaffine ($h_{0}$): cs\_pdt & biaffine ($h_{0,1,2}$)*3: cs\_pdt & 86.13 & 85.35 & 1 & 0.78 \\
+		cu\_proiel & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 74.29 & 75.73 & 3 & -1.44 \\
+		da\_ddt & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 86.28 & 84.88 & 1 & 1.40 \\
+		de\_gsd & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 80.36 & 79.03 & 1 & 1.33 \\
+		el\_gdt & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 89.65 & 89.59 & 1 & 0.06 \\
+		en\_ewt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 84.57 & 84.02 & 1 & 0.55 \\
+		en\_gum & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 84.42 & 85.05 & 2 & -0.63 \\
+		en\_lines & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self+en\_ewt+en\_gum & 81.97 & 81.44 & 1 & 0.53 \\
+		en\_pud & udpipe: en\_ewt & biaffine ($h_{0}$): en\_ewt & biaffine ($h_{0,1,2}$)*3: en\_ewt & 87.73 & 87.89 & 2 & -0.16 \\
+		es\_ancora & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 90.93 & 90.47 & 1 & 0.46 \\
+		et\_edt & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 85.35 & 84.15 & 1 & 1.20 \\
+		eu\_bdt & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 84.22 & 83.13 & 1 & 1.09 \\
+		fa\_seraji & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 88.11 & 86.18 & 1 & 1.93 \\
+		fi\_ftb & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 88.53 & 87.86 & 1 & 0.67 \\
+		fi\_pud & udpipe: fi\_tdt & biaffine ($h_{0}$): fi\_tdt & biaffine ($h_{0}$)*3: fi\_tdt & 90.23 & 89.37 & 1 & 0.86 \\
+		fi\_tdt & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 88.73 & 87.64 & 1 & 1.09 \\
+		fo\_oft & udpipe: no\_bokmaal & biaffine\_trans: no\_bokmaal & biaffine\_trans*3: no\_bokmaal & 44.05 & 49.43 & 1 & -5.38 \\
+		fr\_gsd & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 86.89 & 86.46 & 1 & 0.43 \\
+		fr\_sequoia & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 89.65 & 89.89 & 1 & -0.24 \\
+		fr\_spoken & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self+fr\_gsd+fr\_sequoia & 75.78 & 74.31 & 1 & 1.47 \\
+		fro\_srcmf & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 87.07 & 87.12 & 2 & -0.05 \\
+		ga\_idt & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 68.57 & 70.88 & 5 & -2.31 \\
+		gl\_ctg & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 82.35 & 82.76 & 2 & -0.41 \\
+		gl\_treegal & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 72.88 & 74.25 & 4 & -1.37 \\
+		got\_proiel & uppsala: self & biaffine (none): self & biaffine (none)*3: self & 69.26 & 69.55 & 3 & -0.29 \\
+		grc\_perseus & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 79.39 & 74.29 & 1 & 5.10 \\
+		grc\_proiel & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 79.25 & 76.76 & 1 & 2.49 \\
+		he\_htb & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 67.05 & 76.09 & 3 & -9.04 \\
+		hi\_hdtb & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 92.41 & 91.75 & 1 & 0.66 \\
+		hr\_set & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 87.36 & 86.76 & 1 & 0.60 \\
+		hsb\_ufal & udpipe: self & biaffine\_trans: self+pl\_lfg & biaffine\_trans*3: self+pl\_lfg & 37.68 & 46.42 & 4 & -8.74 \\
+		hu\_szeged & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 82.66 & 79.47 & 1 & 3.19 \\
+		hy\_armtdp & udpipe: self & biaffine\_trans: self+et\_edt & biaffine\_trans*3: self+et\_edt & 33.90 & 37.01 & 3 & -3.11 \\
+		id\_gsd & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 80.05 & 79.13 & 1 & 0.92 \\
+		it\_isdt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 92.00 & 91.47 & 1 & 0.53 \\
+		it\_postwita & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self+it\_isdt & 79.39 & 78.62 & 1 & 0.77 \\
+		ja\_gsd & udpipe+scir: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 83.11 & 79.97 & 1 & 3.14 \\
+		ja\_modern & udpipe+scir: ja\_gsd & biaffine ($h_{0}$): ja\_gsd & biaffine ($h_{0}$)*3: ja\_gsd & 26.58 & 28.33 & 4 & -1.75 \\
+		kk\_ktb & udpipe: self & biaffine\_trans: self+tr\_imst & biaffine\_trans*3: self+tr\_imst & 23.92 & 31.93 & 10 & -8.01 \\
+		kmr\_mg & udpipe: self & biaffine\_trans: self+fa\_seraji & biaffine\_trans*3: self+fa\_seraji & 26.26 & 30.41 & 5 & -4.15 \\
+		ko\_gsd & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 85.14 & 84.31 & 1 & 0.83 \\
+		ko\_kaist & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 86.91 & 86.84 & 1 & 0.07 \\
+		la\_ittb & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 87.08 & 86.54 & 1 & 0.54 \\
+		la\_perseus & udpipe: self & biaffine ($h_{0}$): self+la\_proiel & biaffine ($h_{0,1,2}$)*3: self+la\_proiel & 72.63 & 68.07 & 1 & 4.56 \\
+		la\_proiel & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 73.61 & 71.76 & 1 & 1.85 \\
+		lv\_lvtb & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 83.97 & 81.85 & 1 & 2.12 \\
+		nl\_alpino & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self+nl\_lassysmall & 89.56 & 87.49 & 1 & 2.07 \\
+		nl\_lassysmall & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self+nl\_alpino & 86.84 & 84.27 & 1 & 2.57 \\
+		no\_bokmaal & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 91.23 & 90.37 & 1 & 0.86 \\
+		no\_nynorsk & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 90.99 & 89.46 & 1 & 1.53 \\
+		no\_nynorsklia & udpipe: self & biaffine ($h_{0}$): self+no\_nynorsk & biaffine ($h_{0,1,2}$)*3: self+no\_nynorsk & 70.34 & 68.71 & 1 & 1.63 \\
+		pcm\_nsc & udpipe: en\_ewt & biaffine ($h_{0}$): en\_ewt & biaffine ($h_{0,1,2}$)*3: en\_ewt & 24.48 & 30.07 & 2 & -5.59 \\
+		pl\_lfg & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 94.86 & 94.62 & 1 & 0.24 \\
+		pl\_sz & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 92.23 & 91.59 & 1 & 0.64 \\
+		pt\_bosque & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 87.61 & 87.81 & 3 & -0.20 \\
+		ro\_rrt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 86.87 & 86.33 & 1 & 0.54 \\
+		ru\_syntagrus & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 92.48 & 91.72 & 1 & 0.76 \\
+		ru\_taiga & udpipe: self & biaffine ($h_{0,1,2}$): self+ru\_syntagrus & biaffine ($h_{0,1,2}$)*3: self+ru\_syntagrus & 71.81 & 74.24 & 3 & -2.43 \\
+		sk\_snk & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 88.85 & 87.59 & 1 & 1.26 \\
+		sl\_ssj & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 91.47 & 91.26 & 1 & 0.21 \\
+		sl\_sst & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self+sl\_ssj & 61.39 & 58.12 & 1 & 3.27 \\
+		sme\_giella & udpipe: self & biaffine (none): self & biaffine ($h_{0,1,2}$)*3: self & 69.06 & 69.87 & 3 & -0.81 \\
+		sr\_set & udpipe: self & biaffine (none): self & biaffine ($h_{0,1,2}$)*3: self & 88.33 & 88.66 & 3 & -0.33 \\
+		sv\_lines & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self+sv\_talbanken & 84.08 & 81.97 & 1 & 2.11 \\
+		sv\_pud & udpipe: sv\_lines & biaffine ($h_{0}$): sv\_lines & biaffine ($h_{0}$)*3: sv\_lines+sv\_talbanken & 80.35 & 79.71 & 1 & 0.64 \\
+		sv\_talbanken & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self+sv\_lines & 88.63 & 86.45 & 1 & 2.18 \\
+		th\_pud & thai & biaffine\_trans: zh\_gsd & biaffine\_trans*3: zh\_gsd & 0.64 & 13.70 & 14 & -13.06 \\
+		tr\_imst & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 66.44 & 64.79 & 1 & 1.65 \\
+		ug\_udt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 67.05 & 65.23 & 1 & 1.82 \\
+		uk\_iu & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self+ru\_syntagrus & 88.43 & 85.16 & 1 & 3.27 \\
+		ur\_udtb & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 83.39 & 82.15 & 1 & 1.24 \\
+		vi\_vtb & udpipe+scir: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 55.22 & 47.41 & 1 & 7.81 \\
+		zh\_gsd & udpipe+scir: self & biaffine (none): self & biaffine ($h_{0,1,2}$)*3: self & 76.77 & 71.04 & 1 & 5.73 \\
+	\end{tabular}
+	\caption{The strategies used in the final submission. 
+		The \textit{toolkit} and \textit{model} are separated by colon.
+		\textit{uppsala} denotes the Uppsala segmentor; \textit{scir} denotes our segmentor for Japanese, Vietnamese, and Chinese;
+		\textit{biaffine} denotes the biaffine tagger and parser;
+		\textit{biaffine\_trans} denotes our transfer parser for low-resource languages.
+		$h_{0}$ or $h_{0,1,2}$ in the brackets denotes the ELMo used to train the model where $h_0$
+		means using $\mathbf{h}_{i, 0}^{(LM)}$ for ELMo and $h_{0,1,2}$ means using $\sum_{j=0}^{2} \mathbf{h}_{i, j}^{(LM)}$.
+		\textit{self} notes that the model is trained with the treebank itself.
+		If the model field is not filled with \textit{self}, the model is trained through treebank concatenation.
+		We also show the test LAS and the difference against the other best system.
+	}\label{tbl:big}
+\end{table*}
 
 We also study how preprocessing contributes to the final parsing performance.
 The experimental results on the development set are shown in Table \ref{tbl:preprocess}.
@@ -604,111 +710,19 @@ Similar trends on sentence segmentation performance are witnessed
 but \textit{el\_gdt} and \textit{pt\_bosque} presents some exceptions
 where better preprocess leads drop in the final parsing performance.
 
-\subsection{Time and Memory Consumption}
+\subsection{Parsing Strategies and Test Evaluation}
+Using the development set and cross validation,
+we choose the best model and data combination and
+the choices are shown in Table \ref{tbl:big}
+along with the test evaluation.
+From this table, we can see that our system gains more improvements
+when both ELMo and parser ensemble are used.
+For some treebanks, concatenation also contributes to the improvements
+and the Japanese, Vietnamese, and Chinese parsing clearly benefit from better word segmentation,
+
+We also report the time and memory consumption.
 A full run over the 82 test sets on the TIRA virtual machine \cite{tira}
 takes about 40 hours and consumes about 4G RAM memory.
-\begin{table*}[t]
-\scriptsize
-\centering
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{rlllcccc}
-\textit{ltcode} & sent+tokenize & tagger & parser & LAS & Other LAS & rank & diff. \\
-\hline
-af\_afribooms & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 85.47 & 85.45 & 1 & 0.02 \\
-ar\_padt & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 73.63 & 77.06 & 2 & -3.43 \\
-bg\_btb & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 91.22 & 90.41 & 1 & 0.81 \\
-br\_keb & udpipe: self & biaffine\_trans: self+ga\_idt & biaffine\_trans*3: self+ga\_idt & 8.54 & 38.64 & 21 & -30.1 \\
-bxr\_bdt & udpipe: self & biaffine\_trans: self+hi\_hdtb & biaffine\_trans*3: self+hi\_hdtb & 15.44 & 19.53 & 6 & -4.09 \\
-ca\_ancora & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 91.61 & 90.82 & 1 & 0.79 \\
-cs\_cac & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 91.61 & 91.00 & 1 & 0.61 \\
-cs\_fictree & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 92.02 & 91.83 & 1 & 0.19 \\
-cs\_pdt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 91.68 & 90.57 & 1 & 1.11 \\
-cs\_pud & udpipe: cs\_pdt & biaffine ($h_{0}$): cs\_pdt & biaffine ($h_{0,1,2}$)*3: cs\_pdt & 86.13 & 85.35 & 1 & 0.78 \\
-cu\_proiel & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 74.29 & 75.73 & 3 & -1.44 \\
-da\_ddt & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 86.28 & 84.88 & 1 & 1.40 \\
-de\_gsd & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 80.36 & 79.03 & 1 & 1.33 \\
-el\_gdt & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 89.65 & 89.59 & 1 & 0.06 \\
-en\_ewt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 84.57 & 84.02 & 1 & 0.55 \\
-en\_gum & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 84.42 & 85.05 & 2 & -0.63 \\
-en\_lines & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self+en\_ewt+en\_gum & 81.97 & 81.44 & 1 & 0.53 \\
-en\_pud & udpipe: en\_ewt & biaffine ($h_{0}$): en\_ewt & biaffine ($h_{0,1,2}$)*3: en\_ewt & 87.73 & 87.89 & 2 & -0.16 \\
-es\_ancora & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 90.93 & 90.47 & 1 & 0.46 \\
-et\_edt & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 85.35 & 84.15 & 1 & 1.20 \\
-eu\_bdt & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 84.22 & 83.13 & 1 & 1.09 \\
-fa\_seraji & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 88.11 & 86.18 & 1 & 1.93 \\
-fi\_ftb & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 88.53 & 87.86 & 1 & 0.67 \\
-fi\_pud & udpipe: fi\_tdt & biaffine ($h_{0}$): fi\_tdt & biaffine ($h_{0}$)*3: fi\_tdt & 90.23 & 89.37 & 1 & 0.86 \\
-fi\_tdt & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 88.73 & 87.64 & 1 & 1.09 \\
-fo\_oft & udpipe: no\_bokmaal & biaffine\_trans: no\_bokmaal & biaffine\_trans*3: no\_bokmaal & 44.05 & 49.43 & 1 & -5.38 \\
-fr\_gsd & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 86.89 & 86.46 & 1 & 0.43 \\
-fr\_sequoia & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 89.65 & 89.89 & 1 & -0.24 \\
-fr\_spoken & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self+fr\_gsd+fr\_sequoia & 75.78 & 74.31 & 1 & 1.47 \\
-fro\_srcmf & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 87.07 & 87.12 & 2 & -0.05 \\
-ga\_idt & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 68.57 & 70.88 & 5 & -2.31 \\
-gl\_ctg & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 82.35 & 82.76 & 2 & -0.41 \\
-gl\_treegal & udpipe: self & biaffine (none): self & biaffine (none)*3: self & 72.88 & 74.25 & 4 & -1.37 \\
-got\_proiel & uppsala: self & biaffine (none): self & biaffine (none)*3: self & 69.26 & 69.55 & 3 & -0.29 \\
-grc\_perseus & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 79.39 & 74.29 & 1 & 5.10 \\
-grc\_proiel & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 79.25 & 76.76 & 1 & 2.49 \\
-he\_htb & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 67.05 & 76.09 & 3 & -9.04 \\
-hi\_hdtb & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 92.41 & 91.75 & 1 & 0.66 \\
-hr\_set & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 87.36 & 86.76 & 1 & 0.60 \\
-hsb\_ufal & udpipe: self & biaffine\_trans: self+pl\_lfg & biaffine\_trans*3: self+pl\_lfg & 37.68 & 46.42 & 4 & -8.74 \\
-hu\_szeged & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 82.66 & 79.47 & 1 & 3.19 \\
-hy\_armtdp & udpipe: self & biaffine\_trans: self+et\_edt & biaffine\_trans*3: self+et\_edt & 33.90 & 37.01 & 3 & -3.11 \\
-id\_gsd & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 80.05 & 79.13 & 1 & 0.92 \\
-it\_isdt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 92.00 & 91.47 & 1 & 0.53 \\
-it\_postwita & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self+it\_isdt & 79.39 & 78.62 & 1 & 0.77 \\
-ja\_gsd & udpipe+scir: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 83.11 & 79.97 & 1 & 3.14 \\
-ja\_modern & udpipe+scir: ja\_gsd & biaffine ($h_{0}$): ja\_gsd & biaffine ($h_{0}$)*3: ja\_gsd & 26.58 & 28.33 & 4 & -1.75 \\
-kk\_ktb & udpipe: self & biaffine\_trans: self+tr\_imst & biaffine\_trans*3: self+tr\_imst & 23.92 & 31.93 & 10 & -8.01 \\
-kmr\_mg & udpipe: self & biaffine\_trans: self+fa\_seraji & biaffine\_trans*3: self+fa\_seraji & 26.26 & 30.41 & 5 & -4.15 \\
-ko\_gsd & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 85.14 & 84.31 & 1 & 0.83 \\
-ko\_kaist & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 86.91 & 86.84 & 1 & 0.07 \\
-la\_ittb & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 87.08 & 86.54 & 1 & 0.54 \\
-la\_perseus & udpipe: self & biaffine ($h_{0}$): self+la\_proiel & biaffine ($h_{0,1,2}$)*3: self+la\_proiel & 72.63 & 68.07 & 1 & 4.56 \\
-la\_proiel & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 73.61 & 71.76 & 1 & 1.85 \\
-lv\_lvtb & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 83.97 & 81.85 & 1 & 2.12 \\
-nl\_alpino & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self+nl\_lassysmall & 89.56 & 87.49 & 1 & 2.07 \\
-nl\_lassysmall & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self+nl\_alpino & 86.84 & 84.27 & 1 & 2.57 \\
-no\_bokmaal & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 91.23 & 90.37 & 1 & 0.86 \\
-no\_nynorsk & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 90.99 & 89.46 & 1 & 1.53 \\
-no\_nynorsklia & udpipe: self & biaffine ($h_{0}$): self+no\_nynorsk & biaffine ($h_{0,1,2}$)*3: self+no\_nynorsk & 70.34 & 68.71 & 1 & 1.63 \\
-pcm\_nsc & udpipe: en\_ewt & biaffine ($h_{0}$): en\_ewt & biaffine ($h_{0,1,2}$)*3: en\_ewt & 24.48 & 30.07 & 2 & -5.59 \\
-pl\_lfg & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 94.86 & 94.62 & 1 & 0.24 \\
-pl\_sz & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 92.23 & 91.59 & 1 & 0.64 \\
-pt\_bosque & uppsala: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 87.61 & 87.81 & 3 & -0.20 \\
-ro\_rrt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 86.87 & 86.33 & 1 & 0.54 \\
-ru\_syntagrus & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 92.48 & 91.72 & 1 & 0.76 \\
-ru\_taiga & udpipe: self & biaffine ($h_{0,1,2}$): self+ru\_syntagrus & biaffine ($h_{0,1,2}$)*3: self+ru\_syntagrus & 71.81 & 74.24 & 3 & -2.43 \\
-sk\_snk & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0,1,2}$)*3: self & 88.85 & 87.59 & 1 & 1.26 \\
-sl\_ssj & uppsala: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 91.47 & 91.26 & 1 & 0.21 \\
-sl\_sst & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self+sl\_ssj & 61.39 & 58.12 & 1 & 3.27 \\
-sme\_giella & udpipe: self & biaffine (none): self & biaffine ($h_{0,1,2}$)*3: self & 69.06 & 69.87 & 3 & -0.81 \\
-sr\_set & udpipe: self & biaffine (none): self & biaffine ($h_{0,1,2}$)*3: self & 88.33 & 88.66 & 3 & -0.33 \\
-sv\_lines & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self+sv\_talbanken & 84.08 & 81.97 & 1 & 2.11 \\
-sv\_pud & udpipe: sv\_lines & biaffine ($h_{0}$): sv\_lines & biaffine ($h_{0}$)*3: sv\_lines+sv\_talbanken & 80.35 & 79.71 & 1 & 0.64 \\
-sv\_talbanken & udpipe: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self+sv\_lines & 88.63 & 86.45 & 1 & 2.18 \\
-th\_pud & thai & biaffine\_trans: zh\_gsd & biaffine\_trans*3: zh\_gsd & 0.64 & 13.70 & 14 & -13.06 \\
-tr\_imst & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0,1,2}$)*3: self & 66.44 & 64.79 & 1 & 1.65 \\
-ug\_udt & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 67.05 & 65.23 & 1 & 1.82 \\
-uk\_iu & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self+ru\_syntagrus & 88.43 & 85.16 & 1 & 3.27 \\
-ur\_udtb & udpipe: self & biaffine ($h_{0}$): self & biaffine ($h_{0}$)*3: self & 83.39 & 82.15 & 1 & 1.24 \\
-vi\_vtb & udpipe+scir: self & biaffine ($h_{0,1,2}$): self & biaffine ($h_{0}$)*3: self & 55.22 & 47.41 & 1 & 7.81 \\
-zh\_gsd & udpipe+scir: self & biaffine (none): self & biaffine ($h_{0,1,2}$)*3: self & 76.77 & 71.04 & 1 & 5.73 \\
-\end{tabular}
-\caption{The strategies used in the final submission. 
-	The \textit{toolkit} and \textit{model} are separated by colon (:).
-	\textit{uppsala} denotes the Uppsala segmentor; \textit{scir} denotes our segmentor for Japanese, Vietnamese, and Chinese;
-	\textit{biaffine} denotes the biaffine tagger and parser;
-	\textit{biaffine\_trans} denotes our transfer parser for low-resource languages.
-	$h_{0}$ or $h_{0,1,2}$ in the brackets denotes the ELMo used to train the model where $h_0$
-	means using $\mathbf{h}_{i, 0}^{(LM)}$ for ELMo and $h_{0,1,2}$ means using $\sum_{j=0}^{2} \mathbf{h}_{i, j}^{(LM)}$.
-	\textit{self} notes that the model is trained with the treebank itself.
-	If the model field is not filled with \textit{self}, the model is trained through treebank concatenation.
-	We also show the test LAS and the difference against the other best system.
-}
-\end{table*}
 
 \section{Conclusion}
 
