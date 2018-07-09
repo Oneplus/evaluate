@@ -21,7 +21,7 @@
 \usepackage{latexsym}
 \usepackage{subcaption}
 \usepackage{graphicx}
-\usepackage{url}
+%\usepackage{url}
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
 
@@ -36,7 +36,8 @@
 % in the camera-ready version and ask you to change it back.
 
 \newcommand\BibTeX{B{\sc ib}\TeX}
-\newcommand{\yjcomment}[1]{\textcolor{blue}{[$_\mathrm{L}^\mathrm{Y}$#1]}}
+%\newcommand{\yjcomment}[1]{\textcolor{blue}{[$_\mathrm{L}^\mathrm{Y}$#1]}}
+\newcommand{\udst}[0]{\emph{CoNLL 2018 UD Shared Task}}
 
 \title{Towards Better UD Parsing: Deep Contextualized Word Embeddings, Ensemble, and Treebank Concatenation}
 
@@ -46,11 +47,10 @@
 	{\tt \{car,yjliu,yxwang,bzheng,tliu\}@ir.hit.edu.cn}	}
 
 \date{}
-
+%\hypersetup{draft}
 \begin{document}
 \maketitle
 
-\newcommand{\udst}[0]{\emph{CoNLL 2018 UD Shared Task}}
 
 \begin{abstract}
 This paper describes our system (HIT-SCIR)
@@ -452,7 +452,7 @@ and the character CNN.
 We train their parameters
 as training a bidirectional language model
 on a set of 20 million words data randomly
-sampled from the raw text released by the shared task for each langauge.
+sampled from the raw text released by the shared task for each language.
 Similar to \citet{N18-1202}, we use the \textit{sample softmax} technique
 to make training on large vocabulary feasible \cite{jean-EtAl:2015:ACL-IJCNLP}.
 However, we use a window of words\footnote{The number of words within the window is 8192.} surrounding the target word
@@ -754,8 +754,270 @@ This work was supported by the National Key Basic Research Program of China
 via grant 2014CB340503 and the National Natural Science Foundation of China (NSFC)
 via grant 61300113 and 61632011.
 
-\bibliography{tinydb}
-\bibliographystyle{acl_natbib}
+%\bibliography{tinydb}
+%\bibliographystyle{acl_natbib}
+\begin{thebibliography}{}
+	\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+	
+	\bibitem[{Ammar et~al.(2016)Ammar, Mulcaire, Ballesteros, Dyer, and
+		Smith}]{TACL892}
+	Waleed Ammar, George Mulcaire, Miguel Ballesteros, Chris Dyer, and Noah Smith.
+	2016.
+	\newblock Many languages, one parser.
+	\newblock {\em TACL\/} 4.
+	
+	\bibitem[{Bj\"{o}rkelund et~al.(2017)Bj\"{o}rkelund, Falenska, Yu, and
+		Kuhn}]{bjorkelund-EtAl:2017:K17-3}
+	Anders Bj\"{o}rkelund, Agnieszka Falenska, Xiang Yu, and Jonas Kuhn. 2017.
+	\newblock \href{http://www.aclweb.org/anthology/K17-3004}{Ims at the conll 2017
+		ud shared task: Crfs and perceptrons meet neural networks}.
+	\newblock In {\em Proc. of the CoNLL 2017 Shared Task: Multilingual Parsing
+		from Raw Text to Universal Dependencies\/}.
+	\newblock
+	\href{http://www.aclweb.org/anthology/K17-3004}{http://www.aclweb.org/anthology/K17-3004}.
+	
+	\bibitem[{Bojanowski et~al.(2016)Bojanowski, Grave, Joulin, and
+		Mikolov}]{DBLP:journals/corr/BojanowskiGJM16}
+	Piotr Bojanowski, Edouard Grave, Armand Joulin, and Tomas Mikolov. 2016.
+	\newblock \href{http://arxiv.org/abs/1607.04606}{Enriching word vectors with
+		subword information}.
+	\newblock {\em CoRR\/} abs/1607.04606.
+	\newblock
+	\href{http://arxiv.org/abs/1607.04606}{http://arxiv.org/abs/1607.04606}.
+	
+	\bibitem[{Che et~al.(2017)Che, Guo, Wang, Zheng, Zhao, Liu, Teng, and
+		Liu}]{che-EtAl:2017:K17-3}
+	Wanxiang Che, Jiang Guo, Yuxuan Wang, Bo~Zheng, Huaipeng Zhao, Yang Liu,
+	Dechuan Teng, and Ting Liu. 2017.
+	\newblock \href{http://www.aclweb.org/anthology/K17-3005}{The hit-scir system
+		for end-to-end parsing of universal dependencies}.
+	\newblock In {\em Proc. of the CoNLL 2017 Shared Task: Multilingual Parsing
+		from Raw Text to Universal Dependencies\/}.
+	\newblock
+	\href{http://www.aclweb.org/anthology/K17-3005}{http://www.aclweb.org/anthology/K17-3005}.
+	
+	\bibitem[{de~Lhoneux et~al.(2017)de~Lhoneux, Shao, Basirat, Kiperwasser,
+		Stymne, Goldberg, and Nivre}]{delhoneux-EtAl:2017:K17-3}
+	Miryam de~Lhoneux, Yan Shao, Ali Basirat, Eliyahu Kiperwasser, Sara Stymne,
+	Yoav Goldberg, and Joakim Nivre. 2017.
+	\newblock \href{http://www.aclweb.org/anthology/K17-3022}{From raw text to
+		universal dependencies - look, no tags!}
+	\newblock In {\em Proc. of the CoNLL 2017 Shared Task: Multilingual Parsing
+		from Raw Text to Universal Dependencies\/}.
+	\newblock
+	\href{http://www.aclweb.org/anthology/K17-3022}{http://www.aclweb.org/anthology/K17-3022}.
+	
+	\bibitem[{Dozat and Manning(2016)}]{DBLP:journals/corr/DozatM16}
+	Timothy Dozat and Christopher~D. Manning. 2016.
+	\newblock Deep biaffine attention for neural dependency parsing.
+	\newblock {\em CoRR\/} abs/1611.01734.
+	
+	\bibitem[{Dozat et~al.(2017)Dozat, Qi, and
+		Manning}]{dozat-qi-manning:2017:K17-3}
+	Timothy Dozat, Peng Qi, and Christopher~D. Manning. 2017.
+	\newblock Stanford's graph-based neural dependency parser at the conll 2017
+	shared task.
+	\newblock In {\em Proc. of CoNLL 2017 Shared Task: Multilingual Parsing from
+		Raw Text to Universal Dependencies\/}.
+	
+	\bibitem[{Guo et~al.(2016)Guo, Che, Wang, and Liu}]{C16-1002}
+	Jiang Guo, Wanxiang Che, Haifeng Wang, and Ting Liu. 2016.
+	\newblock \href{http://www.aclweb.org/anthology/C16-1002}{A universal framework
+		for inductive transfer parsing across multi-typed treebanks}.
+	\newblock In {\em Proc. of Coling\/}.
+	\newblock
+	\href{http://www.aclweb.org/anthology/C16-1002}{http://www.aclweb.org/anthology/C16-1002}.
+	
+	\bibitem[{Guo et~al.(2015)Guo, Che, Yarowsky, Wang, and
+		Liu}]{guo-EtAl:2015:ACL-IJCNLP2}
+	Jiang Guo, Wanxiang Che, David Yarowsky, Haifeng Wang, and Ting Liu. 2015.
+	\newblock Cross-lingual dependency parsing based on distributed
+	representations.
+	\newblock In {\em Proc. of ACL\/}.
+	
+	\bibitem[{Jean et~al.(2015)Jean, Cho, Memisevic, and
+		Bengio}]{jean-EtAl:2015:ACL-IJCNLP}
+	S\'{e}bastien Jean, Kyunghyun Cho, Roland Memisevic, and Yoshua Bengio. 2015.
+	\newblock \href{http://www.aclweb.org/anthology/P15-1001}{On using very large
+		target vocabulary for neural machine translation}.
+	\newblock In {\em Proc. of ACL\/}.
+	\newblock
+	\href{http://www.aclweb.org/anthology/P15-1001}{http://www.aclweb.org/anthology/P15-1001}.
+	
+	\bibitem[{Liu et~al.(2018{\natexlab{a}})Liu, Che, Zhao, Qin, and
+		Liu}]{DBLP:journals/corr/abs-1805-11224}
+	Yijia Liu, Wanxiang Che, Huaipeng Zhao, Bing Qin, and Ting Liu.
+	2018{\natexlab{a}}.
+	\newblock \href{http://arxiv.org/abs/1805.11224}{Distilling knowledge for
+		search-based structured prediction}.
+	\newblock {\em CoRR\/} abs/1805.11224.
+	\newblock
+	\href{http://arxiv.org/abs/1805.11224}{http://arxiv.org/abs/1805.11224}.
+	
+	\bibitem[{Liu et~al.(2018{\natexlab{b}})Liu, Zhu, Che, Qin, Schneider, and
+		Smith}]{N18-1088}
+	Yijia Liu, Yi~Zhu, Wanxiang Che, Bing Qin, Nathan Schneider, and Noah~A. Smith.
+	2018{\natexlab{b}}.
+	\newblock \href{http://aclweb.org/anthology/N18-1088}{Parsing tweets into
+		universal dependencies}.
+	\newblock In {\em Proc. of NAACL\/}.
+	\newblock
+	\href{http://aclweb.org/anthology/N18-1088}{http://aclweb.org/anthology/N18-1088}.
+	
+	\bibitem[{Ma and Hovy(2017)}]{ma-hovy:2017:I17-1}
+	Xuezhe Ma and Eduard Hovy. 2017.
+	\newblock \href{http://www.aclweb.org/anthology/I17-1007}{Neural probabilistic
+		model for non-projective mst parsing}.
+	\newblock In {\em Proc. of IJCNLP\/}.
+	\newblock
+	\href{http://www.aclweb.org/anthology/I17-1007}{http://www.aclweb.org/anthology/I17-1007}.
+	
+	\bibitem[{Ma et~al.(2018)Ma, Hu, Liu, Peng, Neubig, and
+		Hovy}]{DBLP:journals/corr/abs-1805-01087}
+	Xuezhe Ma, Zecong Hu, Jingzhou Liu, Nanyun Peng, Graham Neubig, and Eduard~H.
+	Hovy. 2018.
+	\newblock \href{http://arxiv.org/abs/1805.01087}{Stack-pointer networks for
+		dependency parsing}.
+	\newblock {\em CoRR\/} abs/1805.01087.
+	\newblock
+	\href{http://arxiv.org/abs/1805.01087}{http://arxiv.org/abs/1805.01087}.
+	
+	\bibitem[{Nivre et~al.(2016)Nivre, de~Marneffe, Ginter, Goldberg, Haji{\v{c}},
+		Manning, McDonald, Petrov, Pyysalo, Silveira, Tsarfaty, and Zeman}]{ud}
+	Joakim Nivre, Marie-Catherine de~Marneffe, Filip Ginter, Yoav Goldberg, Jan
+	Haji{\v{c}}, Christopher Manning, Ryan McDonald, Slav Petrov, Sampo Pyysalo,
+	Natalia Silveira, Reut Tsarfaty, and Daniel Zeman. 2016.
+	\newblock {Universal Dependencies} v1: A multilingual treebank collection.
+	\newblock In {\em Proc. of LREC-2016\/}.
+	
+	\bibitem[{Nivre et~al.(2018)}]{ud22testdata}
+	Joakim Nivre et~al. 2018.
+	\newblock {Universal Dependencies 2.2}.
+	\newblock {LINDAT}/{CLARIN} digital library at the Institute of Formal and
+	Applied Linguistics, Charles University, Prague,
+	\url{http://hdl.handle.net/11234/ SUPPLY THE NEW PERMANENT ID HERE!}
+	
+	\bibitem[{Peters et~al.(2018)Peters, Neumann, Iyyer, Gardner, Clark, Lee, and
+		Zettlemoyer}]{N18-1202}
+	Matthew Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark,
+	Kenton Lee, and Luke Zettlemoyer. 2018.
+	\newblock \href{http://aclweb.org/anthology/N18-1202}{Deep contextualized word
+		representations}.
+	\newblock In {\em Proc. of NAACL\/}.
+	\newblock
+	\href{http://aclweb.org/anthology/N18-1202}{http://aclweb.org/anthology/N18-1202}.
+	
+	\bibitem[{Potthast et~al.(2014)Potthast, Gollub, Rangel, Rosso, Stamatatos, and
+		Stein}]{tira}
+	Martin Potthast, Tim Gollub, Francisco Rangel, Paolo Rosso, Efstathios
+	Stamatatos, and Benno Stein. 2014.
+	\newblock \href{https://doi.org/10.1007/978-3-319-11382-1\_{}22}{Improving the
+		reproducibility of {PAN}'s shared tasks: Plagiarism detection, author
+		identification, and author profiling}.
+	\newblock In Evangelos Kanoulas, Mihai Lupu, Paul Clough, Mark Sanderson, Mark
+	Hall, Allan Hanbury, and Elaine Toms, editors, {\em Information Access
+		Evaluation meets Multilinguality, Multimodality, and Visualization. 5th
+		International Conference of the {CLEF} Initiative ({CLEF} 14)\/}. Springer,
+	Berlin Heidelberg New York, pages 268--299.
+	\newblock
+	\href{https://doi.org/10.1007/978-3-319-11382-1\_{}22}{https://doi.org/10.1007/978-3-319-11382-1\_{}22}.
+	
+	\bibitem[{Reimers and Gurevych(2017)}]{reimers-gurevych:2017:EMNLP2017}
+	Nils Reimers and Iryna Gurevych. 2017.
+	\newblock Reporting score distributions makes a difference: Performance study
+	of lstm-networks for sequence tagging.
+	\newblock In {\em Proc. of EMNLP\/}.
+	
+	\bibitem[{Shao(2017)}]{DBLP:journals/corr/abs-1709-03756}
+	Yan Shao. 2017.
+	\newblock \href{http://arxiv.org/abs/1709.03756}{Cross-lingual word
+		segmentation and morpheme segmentation as sequence labelling}.
+	\newblock {\em CoRR\/} abs/1709.03756.
+	\newblock
+	\href{http://arxiv.org/abs/1709.03756}{http://arxiv.org/abs/1709.03756}.
+	
+	\bibitem[{Shi et~al.(2017{\natexlab{a}})Shi, Huang, and
+		Lee}]{shi-huang-lee:2017:EMNLP2017}
+	Tianze Shi, Liang Huang, and Lillian Lee. 2017{\natexlab{a}}.
+	\newblock \href{https://www.aclweb.org/anthology/D17-1002}{Fast(er) exact
+		decoding and global training for transition-based dependency parsing via a
+		minimal feature set}.
+	\newblock In {\em Proc. of EMNLP\/}.
+	\newblock
+	\href{https://www.aclweb.org/anthology/D17-1002}{https://www.aclweb.org/anthology/D17-1002}.
+	
+	\bibitem[{Shi et~al.(2017{\natexlab{b}})Shi, Wu, Chen, and
+		Cheng}]{shi-EtAl:2017:K17-3}
+	Tianze Shi, Felix~G. Wu, Xilun Chen, and Yao Cheng. 2017{\natexlab{b}}.
+	\newblock \href{http://www.aclweb.org/anthology/K17-3003}{Combining global
+		models for parsing universal dependencies}.
+	\newblock In {\em Proc. of the CoNLL 2017 Shared Task: Multilingual Parsing
+		from Raw Text to Universal Dependencies\/}.
+	\newblock
+	\href{http://www.aclweb.org/anthology/K17-3003}{http://www.aclweb.org/anthology/K17-3003}.
+	
+	\bibitem[{Smith et~al.(2017)Smith, Turban, Hamblin, and
+		Hammerla}]{DBLP:journals/corr/SmithTHH17}
+	Samuel~L. Smith, David H.~P. Turban, Steven Hamblin, and Nils~Y. Hammerla.
+	2017.
+	\newblock \href{http://arxiv.org/abs/1702.03859}{Offline bilingual word
+		vectors, orthogonal transformations and the inverted softmax}.
+	\newblock {\em CoRR\/} abs/1702.03859.
+	\newblock
+	\href{http://arxiv.org/abs/1702.03859}{http://arxiv.org/abs/1702.03859}.
+	
+	\bibitem[{Straka et~al.(2016)Straka, Haji\v{c}, and Strakov\'{a}}]{udpipe}
+	Milan Straka, Jan Haji\v{c}, and Jana Strakov\'{a}. 2016.
+	\newblock {UDPipe:} trainable pipeline for processing {CoNLL-U} files
+	performing tokenization, morphological analysis, {POS} tagging and parsing.
+	\newblock In {\em Proc. of LREC-2016\/}.
+	
+	\bibitem[{Zeman et~al.(2018)Zeman, Ginter, Haji{\v{c}}, Nivre, Popel, and
+		Straka}]{udst:overview}
+	Daniel Zeman, Filip Ginter, Jan Haji{\v{c}}, Joakim Nivre, Martin Popel, and
+	Milan Straka. 2018.
+	\newblock {CoNLL 2018 Shared Task: Multilingual Parsing from Raw Text to
+		Universal Dependencies}.
+	\newblock In {\em {Proc. of the CoNLL 2018 Shared Task: Multilingual Parsing
+			from Raw Text to Universal Dependencies}\/}.
+	
+	\bibitem[{Zeman et~al.(2017)Zeman, Popel, Straka, Haji{\v{c}}, Nivre, Ginter,
+		Luotolahti, Pyysalo, Petrov, Potthast, Tyers, Badmaeva, G{\"{o}}k{\i}rmak,
+		Nedoluzhko, Cinkov{\'{a}}, Haji{\v{c}}~jr., Hlav{\'{a}}{\v{c}}ov{\'{a}},
+		Kettnerov{\'{a}}, Ure{\v{s}}ov{\'{a}}, Kanerva, Ojala, Missil{\"{a}},
+		Manning, Schuster, Reddy, Taji, Habash, Leung, de~Marneffe, Sanguinetti,
+		Simi, Kanayama, de~Paiva, Droganova, Mart{\'{\i}}nez~Alonso,
+		{\c{C}}{\"{o}}ltekin, Sulubacak, Uszkoreit, Macketanz, Burchardt, Harris,
+		Marheinecke, Rehm, Kayadelen, Attia, Elkahky, Yu, Pitler, Lertpradit, Mandl,
+		Kirchner, Fernandez~Alcalde, Strnadova, Banerjee, Manurung, Stella, Shimada,
+		Kwak, Mendon{\c{c}}a, Lando, Nitisaroj, and Li}]{udst:overview2017}
+	Daniel Zeman, Martin Popel, Milan Straka, Jan Haji{\v{c}}, Joakim Nivre, Filip
+	Ginter, Juhani Luotolahti, Sampo Pyysalo, Slav Petrov, Martin Potthast,
+	Francis Tyers, Elena Badmaeva, Memduh G{\"{o}}k{\i}rmak, Anna Nedoluzhko,
+	Silvie Cinkov{\'{a}}, Jan Haji{\v{c}}~jr., Jaroslava
+	Hlav{\'{a}}{\v{c}}ov{\'{a}}, V{\'{a}}clava Kettnerov{\'{a}}, Zde{\v{n}}ka
+	Ure{\v{s}}ov{\'{a}}, Jenna Kanerva, Stina Ojala, Anna Missil{\"{a}},
+	Christopher Manning, Sebastian Schuster, Siva Reddy, Dima Taji, Nizar Habash,
+	Herman Leung, Marie-Catherine de~Marneffe, Manuela Sanguinetti, Maria Simi,
+	Hiroshi Kanayama, Valeria de~Paiva, Kira Droganova, H{\'{e}}ctor
+	Mart{\'{\i}}nez~Alonso, {\c{C}}a{\u{g}}r{\i} {\c{C}}{\"{o}}ltekin, Umut
+	Sulubacak, Hans Uszkoreit, Vivien Macketanz, Aljoscha Burchardt, Kim Harris,
+	Katrin Marheinecke, Georg Rehm, Tolga Kayadelen, Mohammed Attia, Ali Elkahky,
+	Zhuoran Yu, Emily Pitler, Saran Lertpradit, Michael Mandl, Jesse Kirchner,
+	Hector Fernandez~Alcalde, Jana Strnadova, Esha Banerjee, Ruli Manurung,
+	Antonio Stella, Atsuko Shimada, Sookyoung Kwak, Gustavo Mendon{\c{c}}a,
+	Tatiana Lando, Rattima Nitisaroj, and Josie Li. 2017.
+	\newblock {CoNLL 2017 Shared Task: Multilingual Parsing from Raw Text to
+		Universal Dependencies}.
+	
+	\bibitem[{Zheng et~al.(2017)Zheng, Che, Guo, and
+		Liu}]{10.1007/978-3-319-69005-6_6}
+	Bo~Zheng, Wanxiang Che, Jiang Guo, and Ting Liu. 2017.
+	\newblock Enhancing lstm-based word segmentation using unlabeled data.
+	\newblock In {\em Chinese Computational Linguistics and Natural Language
+		Processing Based on Naturally Annotated Big Data\/}.
+	
+\end{thebibliography}
 
 
 \end{document}
