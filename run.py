@@ -326,7 +326,7 @@ def parse_aux(treebank_conf, global_conf):
     if treebank_conf['parser_aux'] == '':
         return
 
-    input_file = os.path.join(global_conf['output'], 'tokenized.conllu')
+    input_file = os.path.join(global_conf['output'], 'tagged.conllu')
     ave_output_file = os.path.join(global_conf['output'], 'words.ave_elmo')
     lstm_output_file = os.path.join(global_conf['output'], 'words.lstm_elmo')
     if os.path.exists(ave_output_file) and os.path.exists(lstm_output_file):
@@ -476,14 +476,12 @@ def load_global_conf():
     return conf
 
 
-def load_conf():
+def load_conf(filename):
     """
 
     :return:
     """
-    root_dir, _ = os.path.split(os.path.abspath(__file__))
-    conf_dir = os.path.join(root_dir, 'conf')
-    reader = csv.DictReader(open(os.path.join(conf_dir, 'dataset.csv'), 'r'))
+    reader = csv.DictReader(open(filename, 'r'))
     output = {}
     for row in reader:
         output[row['code']] = row
@@ -494,6 +492,7 @@ def main():
     cmd = argparse.ArgumentParser('usage: ')
     cmd.add_argument('-input_dir', required=True, help='the path to the input dir.')
     cmd.add_argument('-output_dir', required=True, help='the path to the output dir')
+    cmd.add_argument('-conf', required=True, help='the path to the config file.')
     opts = cmd.parse_args()
 
     # get global configuration
@@ -503,7 +502,7 @@ def main():
     if not os.path.exists(global_conf['output']):
         os.makedirs(global_conf['output'])
 
-    dataset_conf = load_conf()
+    dataset_conf = load_conf(opts.conf)
 
     meta = json.load(open(os.path.join(opts.input_dir, 'metadata.json')))
     for info in sorted(meta, key=lambda entry: (entry['lcode'] in ('zh', 'ja', 'vi'), entry['lcode'], entry['tcode']),
